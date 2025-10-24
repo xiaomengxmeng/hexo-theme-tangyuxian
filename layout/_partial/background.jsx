@@ -8,7 +8,7 @@ module.exports = class extends Component {
             <div id="nexmoe-background">
                 <div
                     class="nexmoe-bg"
-                    style={`background-image: url(${theme.background.path})`}
+                    style={`background-image: url(${theme.background.path ? url_for(theme.background.path) : url_for('images/background/xiaomai.jpg')})`}
                 ></div>
                 <div class="nexmoe-character"
                 ></div>

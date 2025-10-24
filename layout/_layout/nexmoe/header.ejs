@@ -25,10 +25,10 @@
         <%- partial('_widget/' + widget.name, {options: widget.options}) %>
     <% }}) %>
    
-    <div class="nexmoe-copyright">
+    <div class="nexmoe-copyright" style="color: #fff; text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;">
         &copy; <%= date(new Date(), 'YYYY') %> <%= config.author || config.title %>
-        <%= __('Powered by') %> <a href="http://hexo.io/" target="_blank">Hexo</a>
-        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a>
+        <%= __('Powered by') %> <a href="http://hexo.io/" target="_blank" style="color: #fff; text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank" style="color: #fff; text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;">Tangyuxian</a>
         <%- theme.slotSidebar %>
     </div>
 </div><!-- .nexmoe-drawer -->

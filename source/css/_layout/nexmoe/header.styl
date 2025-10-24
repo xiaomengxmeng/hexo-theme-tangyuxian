@@ -85,11 +85,17 @@
 
         .nexmoe-list-item {
             padding: 0 36px;
-            color: #9ca2a8;
+            color: #333 !important;
             border-radius: var(--radius);
             margin-bottom: 10px;
             text-align: center;
-            transition: none !important;
+            transition: all 0.3s ease !important;
+            background: linear-gradient(135deg, #90caf9 0%, #ffccbc 100%);
+        }
+        
+        .nexmoe-list-item:hover {
+            background: linear-gradient(135deg, #64b5f6 0%, #ffab91 100%);
+            color: #212121 !important;
         }
 
         .nexmoe-list-item.true, .nexmoe-list-item.true i {
@@ -109,6 +115,8 @@
 
         .nexmoe-list-item .mdui-list-item-content {
             margin-left: 0px;
+            color: #212121 !important;
+            font-weight: 500;
         }
     }
 
@@ -173,7 +181,8 @@
 
         .nexmoe-list-item {
             padding: 0 17px;
-            color: #9ca2a8;
+            color: #333 !important;
+            background: linear-gradient(135deg, #90caf9 0%, #ffccbc 100%);
         }
 
         .mdui-list-item-icon~.mdui-list-item-content {

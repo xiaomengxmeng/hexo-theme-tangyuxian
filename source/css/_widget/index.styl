@@ -26,9 +26,18 @@
                 white-space: nowrap;
                 position: relative;
                 padding: 12px 18px;
+                cursor: pointer;
+                height: auto;
+                
+                &:hover {
+                    background-color: var(--color-hover);
+                }
 
                 a {
                     color: var(--color-text-3);
+                    display: inline-block;
+                    width: calc(100% - 40px);
+                    text-decoration: none;
                 }
             }
 
@@ -38,7 +47,7 @@
             }
         }
 
-        .category-list-count, .archive-list-count {
+        .category-list-count, .archive-list-count, .tag-list-count {
             background-color: var(--color-primary-bg);
             display: inline-block;
             width: 26px;

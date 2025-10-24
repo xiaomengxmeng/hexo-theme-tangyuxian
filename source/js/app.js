@@ -55,7 +55,88 @@ document
         item.style.minHeight = item.childNodes[3].clientHeight + 'px';
     });
 
+// 动态设置文章背景色与图片一致
+function setDynamicArticleBackground() {
+    // 检查是否在文章页面
+    const article = document.querySelector('article');
+    if (!article) return;
+    
+    // 查找文章中的第一张图片（优先封面图）
+    let targetImage = document.querySelector('.nexmoe-post-cover img');
+    if (!targetImage) {
+        targetImage = article.querySelector('img');
+    }
+    
+    if (!targetImage) return;
+    
+    // 创建Canvas用于提取图片颜色
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    
+    img.onload = function() {
+        // 设置canvas尺寸为图片的1/10，提高性能
+        const width = Math.floor(img.width / 10);
+        const height = Math.floor(img.height / 10);
+        canvas.width = width;
+        canvas.height = height;
+        
+        // 绘制图片到canvas
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        // 获取像素数据
+        const imageData = ctx.getImageData(0, 0, width, height);
+        const data = imageData.data;
+        
+        // 统计颜色（简单的取平均色）
+        let r = 0, g = 0, b = 0;
+        let pixelCount = 0;
+        
+        for (let i = 0; i < data.length; i += 4) {
+            const alpha = data[i + 3];
+            // 跳过透明像素
+            if (alpha > 128) {
+                r += data[i];
+                g += data[i + 1];
+                b += data[i + 2];
+                pixelCount++;
+            }
+        }
+        
+        if (pixelCount > 0) {
+            r = Math.floor(r / pixelCount);
+            g = Math.floor(g / pixelCount);
+            b = Math.floor(b / pixelCount);
+            
+            // 创建更浅的半透明背景色，降低透明度值
+            const backgroundColor = `rgba(${r}, ${g}, ${b}, 0.03)`;
+            const gradientColor1 = `rgba(${r}, ${g}, ${b}, 0.01)`;
+            const gradientColor2 = `rgba(${r}, ${g}, ${b}, 0.05)`;
+            
+            // 应用更平滑的渐变背景到文章容器
+            const articleContainer = article.closest('.nexmoe-post');
+            if (articleContainer) {
+                // 使用更丰富的渐变效果
+                articleContainer.style.background = `linear-gradient(120deg, ${gradientColor1} 0%, ${gradientColor2} 50%, ${gradientColor1} 100%)`;
+                articleContainer.style.transition = 'all 0.8s ease';
+            }
+            
+            // 应用更浅的背景色到文章本身
+            article.style.backgroundColor = backgroundColor;
+            article.style.transition = 'all 0.8s ease';
+        }
+    };
+    
+    // 设置图片源
+    img.src = targetImage.src;
+}
+
 window.onload = function() {
+    // 动态设置文章背景色
+    setDynamicArticleBackground();
+    
+    // 初始化lax动画库
     lax.init();
 
     // Add a driver that we use to control our animations
@@ -80,5 +161,12 @@ window.onload = function() {
                 [0, 1]
             ]
         }
+    });
+    
+    // 为文章图片添加加载完成后的背景更新
+    document.querySelectorAll('article img').forEach(img => {
+        img.onload = function() {
+            setDynamicArticleBackground();
+        };
     });
 };
